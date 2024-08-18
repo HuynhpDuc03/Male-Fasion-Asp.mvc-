@@ -1,0 +1,203 @@
+﻿@using MaleFashion.Models;
+@model IEnumerable<MaleFashion.Models.CartModel>
+@{
+    ViewBag.Title = "Index";
+    bool hasItems = (Session["cart"] != null) && ((List<CartModel>)Session["cart"]).Count > 0;
+}
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>Shopping Cart</h4>
+                    <div class="breadcrumb__links">
+                        <a href="./index.html">Home</a>
+                        <a href="./shop.html">Shop</a>
+                        <span>Shopping Cart</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Shopping Cart Section Begin -->
+<section class="shopping-cart spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                @using (Html.BeginForm("Update", "Cart", FormMethod.Post))
+                {
+                    <div class="shopping__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        if (item.product != null)
+                                        {
+                                            <tr id="product-@item.product.MaSP">
+                                                <td class="product__cart__item">
+                                                    <div class="product__cart__item__pic">
+                                                        <img src="~/img/product/@item.product.SanPham.HinhSP" alt="" style="width:90px;height:90px;">
+                                                    </div>
+                                                    <div class="product__cart__item__text">
+                                                        <h6>@item.product.SanPham.TenSP</h6>
+                                                        <h6>Size: @item.product.KichThuoc.TenKT - Màu: @item.product.MauSac.TenMau</h6>
+                                                        @if (item.product.SanPham.GiamGia != null && item.product.SanPham.GiamGia > 0)
+                                                        {
+                                                            var priceAfterDiscount = item.product.SanPham.GiaBan - (item.product.SanPham.GiaBan * item.product.SanPham.GiamGia / 100);
+                                                            <h5>@priceAfterDiscount.Value.ToString("#,##0 ₫")</h5>
+                                                        }
+                                                        else
+                                                        {
+                                                            <h5>@item.product.SanPham.GiaBan.ToString("#,##0 ₫")</h5>
+                                                        }
+                                                    </div>
+                                                </td>
+                                                <td class="quantity__item">
+                                                    <div class="quantity">
+                                                        <div class="pro-qty-2">
+                                                            <input type="text" name="quantity" value="@item.Quantity">
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="cart__price">
+                                                    @if (item.product.SanPham.GiamGia != null && item.product.SanPham.GiamGia > 0)
+                                                    {
+                                                        var priceAfterDiscount = item.product.SanPham.GiaBan - (item.product.SanPham.GiaBan * item.product.SanPham.GiamGia / 100);
+                                                        var totalPrice = priceAfterDiscount * item.Quantity;
+                                                        <h5>@totalPrice.Value.ToString("#,##0 ₫")</h5>
+                                                    }
+                                                    else
+                                                    {
+                                                        var totalPrice = item.product.SanPham.GiaBan * item.Quantity;
+                                                        <h5>@totalPrice.ToString("#,##0 ₫")</h5>
+                                                    }
+                                                </td>
+
+                                                <td class="cart__close">
+                                                    <input type="hidden" value="@item.product.MaSP" id="productid" />
+                                                    <a href="#" class="btn btn-light" id="removecart">REMOVE</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    <tr><td><p>Không có sản phẩm trong giỏ hàng</p></td></tr>
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="continue__btn">
+                                <a href="@Url.Action("Index", "Shop")">Continue Shopping</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="continue__btn update__btn">
+
+                                <button class="primary-btn" type="submit" id="updatecart" style="@(hasItems ? "" : "pointer-events:none;background: #ddd;border: none;")">
+                                    <i class="fa fa-spinner"></i>
+                                    Update Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="col-lg-4">
+                <div class="cart__discount">
+                    <h6>Discount codes</h6>
+                    <form action="#">
+                        <input type="text" placeholder="Coupon code">
+                        <button type="submit">Apply</button>
+                    </form>
+                </div>
+                <div class="cart__total">
+                    <h6>Cart total</h6>
+                    <ul>
+
+                        <li>
+                            Total <span>
+                                @{
+                                    var total = 0;
+                                    if (Model != null)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            total += item.GetTotalPrice();
+                                        }
+                                    }
+                                }
+                                @total.ToString("#,##0 đ")
+                            </span>
+                        </li>
+                    </ul>
+
+
+                    @if (Session["AccountID"] == null)
+                    {
+                        <a href="@Url.Action("Login", "Home")" class="primary-btn" style="@(hasItems ? "" : "pointer-events:none;background: #ddd;")">Proceed to checkout</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Index", "CheckOut")" class="primary-btn" style="@(hasItems ? "" : "pointer-events:none; background: #ddd;")">Proceed to checkout</a>
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shopping Cart Section End -->
+
+@section  Scripts{
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <script type="text/javascript">
+    $(function () {
+        $("#removecart").click(function () {
+            var model = {};
+            //lấy id sản phẩm
+            model.Id = $("#productid").val();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Remove", "Cart")',
+                data:  JSON.stringify(model) ,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function () {
+                    $('#CartCount').text(@Session["count"] - 1);
+                    $("#product-" + model.Id).remove();
+                },
+                error: function () {
+                    alert("Lỗi trong khi thêm vào giỏ hàng!");
+                }
+            });
+            return false;
+        });
+    });
+    </script>
+
+
+}

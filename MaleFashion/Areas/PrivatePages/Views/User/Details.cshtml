@@ -1,0 +1,68 @@
+﻿@model MaleFashion.Models.KhachHang
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Thuộc tính</th>
+            <th>Dữ liệu</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.HoTen)</td>
+            <td>@Html.DisplayFor(model => model.HoTen)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.SDT)</td>
+            <td>@Html.DisplayFor(model => model.SDT)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.DiaChi)</td>
+            <td>@Html.DisplayFor(model => model.DiaChi)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.TenDangNhap)</td>
+            <td>@Html.DisplayFor(model => model.TenDangNhap)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.MatKhau)</td>
+            <td>@Html.DisplayFor(model => model.MatKhau)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.EMAIL)</td>
+            <td>@Html.DisplayFor(model => model.EMAIL)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.NgaySinh)</td>
+            <td>@Html.DisplayFor(model => model.NgaySinh)</td>
+        </tr>
+        
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.NgayTao)</td>
+            <td>@Html.DisplayFor(model => model.NgayTao)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.DonDatHangs)</td>
+
+            <td>
+                <ul>
+                    @foreach (var order in Model.DonDatHangs)
+                    {
+                        <li>@order.TenDH</li>
+                    }
+                </ul>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaKH }, new { @class = "btn btn-success" }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,82 @@
+﻿@model MaleFashion.Models.KhachHang 
+@{
+    ViewBag.Title = "Index";
+}
+<section class="checkout spad">
+    <div class="container">
+        <div class="checkout__form">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.MaKH)
+
+                @Html.HiddenFor(model => model.MatKhau)
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <h6 class="checkout__title">Thông tin cá nhân</h6>
+
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Họ Tên<span>*</span></p>
+                                    @Html.EditorFor(model => model.HoTen)
+                                    @Html.ValidationMessageFor(model => model.HoTen, "")
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Email<span>*</span></p>
+                                    @Html.EditorFor(model => model.EMAIL)
+                                    @Html.ValidationMessageFor(model => model.EMAIL, "")
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Số điện thoại<span>*</span></p>
+                                    @Html.EditorFor(model => model.SDT)
+                                    @Html.ValidationMessageFor(model => model.SDT, "")
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Ngày sinh<span>*</span></p>
+                                    @Html.EditorFor(model => model.NgaySinh)
+                                    @Html.ValidationMessageFor(model => model.NgaySinh, "")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="checkout__input">
+                                    <p>Địa chỉ<span>*</span></p>
+                                    @Html.EditorFor(model => model.DiaChi)
+                                    @Html.ValidationMessageFor(model => model.DiaChi, "")
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="@Url.Action("ChangePassword","MyProfile", new { id = Model.MaKH })" class="site-btn">Đổi mật khẩu</a>
+                        <button style="float:right" type="submit" class="site-btn">Save</button>
+
+
+                    </div>
+
+
+                </div>
+
+            }
+
+        </div>
+    </div>
+</section>
+

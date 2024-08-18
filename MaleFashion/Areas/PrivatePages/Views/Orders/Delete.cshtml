@@ -1,0 +1,86 @@
+﻿@model MaleFashion.Models.DonDatHang
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Delete</h4>
+
+<h3>Bạn có muốn xóa đơn hàng này không?</h3>
+<div>
+    <h4>DonDatHang</h4>
+    <hr />
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.MaDH)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.MaDH)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.NgayDatHang)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.NgayDatHang)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.NgayGiao)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.NgayGiao)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TrangThaiDH)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.TrangThaiDH)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.DaThanhToan)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.DaThanhToan)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.GhiChu)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.GhiChu)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.DiaChi)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.DiaChi)
+                </td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+    
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+

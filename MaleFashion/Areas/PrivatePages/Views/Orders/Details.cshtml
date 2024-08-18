@@ -1,0 +1,106 @@
+﻿@model MaleFashion.Models.DonDatHang
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/PrivatePages/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Details</h4>
+
+<div>
+    <h4>Đơn đặt hàng</h4>
+    <hr />
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.MaDH)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.MaDH)
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.MaKH)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.MaKH)
+                </td>
+            </tr>
+            
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.NgayDatHang)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.NgayDatHang)
+                </td>
+            </tr>
+            
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.NgayGiao)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.NgayGiao)
+                </td>
+            </tr>
+           
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TrangThaiDH)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.TrangThaiDH)
+                </td>
+            </tr>
+            
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.DaThanhToan)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.DaThanhToan)
+                </td>
+            </tr>
+            
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.GhiChu)
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.GhiChu)
+                </td>
+            </tr>
+            
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.DiaChi)
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.DiaChi)
+                </td>
+            </tr>
+            
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TenDH)
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.TenDH)
+                </td>
+            </tr>
+            
+        </tbody>
+    </table>
+    
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new {  id = Model.MaDH  }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
